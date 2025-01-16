@@ -3,12 +3,10 @@ import {
   Component,
   computed,
   inject,
-  OnInit,
-  signal,
 } from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, tap } from 'rxjs';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-header',

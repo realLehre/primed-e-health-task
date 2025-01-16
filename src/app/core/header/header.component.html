@@ -3,7 +3,7 @@
     <h3 class="text-lg font-semibold">Primed E-Health Task</h3>
 
     <ul class="flex items-center">
-      @if (baseUrl() == "users") {
+      @if (baseUrl() !== "dashboard") {
         <li>
           <a
             class="cursor-pointer py-1 hover:font-medium"

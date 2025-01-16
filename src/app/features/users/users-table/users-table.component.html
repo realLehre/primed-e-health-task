@@ -1,1 +1,47 @@
-<p>users-table works!</p>
+<div>
+  <h3 class="text-lg mobile:text-2xl font-semibold mb-4">Users</h3>
+
+  @if (usersData().length > 0) {
+    <div class="overflow-x-auto">
+      <table
+        class="min-w-full table-auto border-collapse border border-gray-300"
+      >
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="border border-gray-300 px-4 py-2 text-left">Name</th>
+            <th class="border border-gray-300 px-4 py-2 text-left">Email</th>
+            <th class="border border-gray-300 px-4 py-2 text-left">Role</th>
+            <th class="border border-gray-300 px-4 py-2 text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of usersData(); track user.id) {
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">{{ user.name }}</td>
+              <td class="border border-gray-300 px-4 py-2">{{ user.email }}</td>
+              <td class="border border-gray-300 px-4 py-2">{{ user.role }}</td>
+              <td
+                class="border border-gray-300 px-4 py-2 flex items-center gap-2 flex-wrap"
+              >
+                <button
+                  class="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 text-sm"
+                  (click)="onEditUser(user)"
+                >
+                  Edit
+                </button>
+                <button
+                  class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 text-sm"
+                  (click)="onDeleteUser(user)"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <p>No users added yet</p>
+  }
+</div>

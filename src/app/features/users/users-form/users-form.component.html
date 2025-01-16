@@ -1,9 +1,7 @@
-<form
-  [formGroup]="userForm"
-  (ngSubmit)="onSubmit()"
-  class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md"
->
-  <h2 class="text-2xl font-bold mb-4 text-center">Add New User</h2>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="max-w-[500px]">
+  <h2 class="text-lg mobile:text-2xl font-semibold mb-4">
+    {{ !isEditing() ? "Add New User" : "Edit User" }}
+  </h2>
 
   <div class="mb-4">
     <label for="name" class="block text-sm font-medium text-gray-700"
@@ -77,12 +75,21 @@
     }
   </div>
 
-  <div>
+  <div class="flex items-center gap-4 mt-4">
+    @if (isEditing()) {
+      <button
+        type="button"
+        class="w-full bg-gray-700 text-white py-2 px-4 rounded-md shadow-md hover:bg-opacity-85"
+        (click)="cancelOrResetForm()"
+      >
+        Cancel
+      </button>
+    }
     <button
       type="submit"
-      class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-indigo-700"
+      class="w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-opacity-85"
     >
-      Add User
+      {{ !isEditing() ? "Add User" : "Update User" }}
     </button>
   </div>
 </form>

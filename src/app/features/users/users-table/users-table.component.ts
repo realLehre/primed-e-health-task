@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  output,
+} from '@angular/core';
+import { IUser } from '../models/users.interface';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-table',
@@ -7,4 +15,28 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './users-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UsersTableComponent {}
+export class UsersTableComponent {
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  usersData = input.required<IUser[]>();
+  editUser = output<IUser>();
+  deleteUser = output<IUser>();
+
+  onEditUser(user: IUser) {
+    this.editUser.emit(user);
+    this.router.navigate([], {
+      queryParams: { edit: true },
+      relativeTo: this.route,
+    });
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: 70,
+        behavior: 'smooth',
+      });
+    });
+  }
+
+  onDeleteUser(user: IUser) {
+    this.deleteUser.emit(user);
+  }
+}

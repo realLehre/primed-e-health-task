@@ -1,5 +1,13 @@
-<div>
+<div class="space-y-10">
   <section>
     <app-users-form />
+  </section>
+
+  <section>
+    <app-users-table
+      [usersData]="users()"
+      (editUser)="editUser($event)"
+      (deleteUser)="deleteUser($event)"
+    />
   </section>
 </div>
