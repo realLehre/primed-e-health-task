@@ -1,0 +1,23 @@
+<div class="px-6 py-4 bg-gray-200">
+  <div class="max-w-[1200px] mx-auto flex justify-between items-center">
+    <h3 class="text-lg font-semibold">Primed E-Health Task</h3>
+
+    <ul class="flex items-center">
+      @if (baseUrl() == "users") {
+        <li>
+          <a
+            class="cursor-pointer py-1 hover:font-medium"
+            routerLink="/dashboard"
+            >Dashboard
+          </a>
+        </li>
+      } @else {
+        <li>
+          <a class="cursor-pointer py-1 hover:font-medium" routerLink="/users"
+            >User management</a
+          >
+        </li>
+      }
+    </ul>
+  </div>
+</div>
