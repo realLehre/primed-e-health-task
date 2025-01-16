@@ -1,2 +1,4 @@
-export interface Users {
+export interface IUserRoles {
+  title: string;
+  id: string;
 }

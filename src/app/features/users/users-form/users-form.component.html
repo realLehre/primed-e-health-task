@@ -1,1 +1,88 @@
-<p>users-form works!</p>
+<form
+  [formGroup]="userForm"
+  (ngSubmit)="onSubmit()"
+  class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md"
+>
+  <h2 class="text-2xl font-bold mb-4 text-center">Add New User</h2>
+
+  <div class="mb-4">
+    <label for="name" class="block text-sm font-medium text-gray-700"
+      >Name</label
+    >
+    <input
+      id="name"
+      formControlName="name"
+      type="text"
+      class="mt-1 block w-full rounded-md p-2 border border-gray-300 shadow-sm focus:outline-0 focus:border-gray-400 sm:text-sm"
+      [ngClass]="{
+        'border-red-500': (name.dirty || name.touched) && name.invalid,
+      }"
+    />
+    @if ((name.dirty || name.touched) && name.invalid) {
+      <div>
+        <small class="text-red-500 text-sm"> Name is required. </small>
+      </div>
+    }
+  </div>
+
+  <div class="mb-4">
+    <label for="email" class="block text-sm font-medium text-gray-700"
+      >Email</label
+    >
+    <input
+      id="email"
+      formControlName="email"
+      type="email"
+      class="mt-1 block w-full rounded-md p-2 border border-gray-300 shadow-sm focus:outline-0 focus:border-gray-400 sm:text-sm"
+      [ngClass]="{
+        'border-red-500': (email.dirty || email.touched) && email.invalid,
+      }"
+    />
+    @if ((email.dirty || email.touched) && email.invalid) {
+      <div>
+        @if (email.errors?.["required"]) {
+          <small class="text-red-500 text-sm"> Email is required. </small>
+        }
+        @if (email.errors?.["email"]) {
+          <small class="text-red-500 text-sm"> Invalid email format. </small>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="mb-4">
+    <label for="role" class="block text-sm font-medium text-gray-700"
+      >Role</label
+    >
+    <select
+      id="role"
+      formControlName="role"
+      type="text"
+      class="mt-1 block w-full rounded-md p-2 border border-gray-300 shadow-sm focus:outline-0 focus:border-gray-400 sm:text-sm"
+      [ngClass]="{
+        'border-red-500': (role.dirty || role.touched) && role.invalid,
+      }"
+    >
+      <option disabled [value]="null">Select a role</option>
+
+      @for (role of roles; track role.id) {
+        <option [value]="role.title">{{ role.title }}</option>
+      }
+    </select>
+
+    @if ((role.dirty || role.touched) && role.invalid) {
+      <div>
+        <small class="text-red-500 text-sm"> Role is required. </small>
+      </div>
+    }
+  </div>
+
+  <div>
+    <button
+      type="submit"
+      class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-indigo-700"
+    >
+      Add User
+    </button>
+  </div>
+</form>
