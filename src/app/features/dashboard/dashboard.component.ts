@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DashboardAnalyticsService } from './services/dashboard-analytics.service';
-import { JsonPipe, KeyValuePipe } from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [KeyValuePipe],
+  imports: [KeyValuePipe, RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

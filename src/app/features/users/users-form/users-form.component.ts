@@ -39,6 +39,7 @@ export class UsersFormComponent implements OnInit, OnDestroy {
   routerUrl = toSignal(
     this.router.events.pipe(
       tap(() => {
+        // prepopulate form depending on the state
         if (this.isEditing()) {
           this.userForm.setValue({
             name: this.activeUser()?.name,
@@ -80,20 +81,18 @@ export class UsersFormComponent implements OnInit, OnDestroy {
       return;
     }
     const userData = this.userForm.value;
+
+    // if edit mode is on, call the edit method else add the new user
     this.isEditing()
       ? this.userService.editUser(this.activeUser()?.id!, userData)
       : this.userService.addUser(userData);
+
     this.cancelOrResetForm();
   }
 
   cancelOrResetForm() {
     this.userForm.reset();
-    this.userService.activeUser.set(null);
-    this.router.navigate([], {
-      queryParams: null,
-      queryParamsHandling: 'replace',
-      relativeTo: this.route,
-    });
+    this.userService.cancelOrResetForm();
   }
 
   ngOnDestroy() {

@@ -1,12 +1,15 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { IUser, IUserRoles } from '../models/users.interface';
 import { StorageService } from '../../../shared/services/storage.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
   private readonly storageService = inject(StorageService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   roles: IUserRoles[] = [
     { id: this.generateRandomId(), title: 'Admin' },
     { id: this.generateRandomId(), title: 'User' },
@@ -19,6 +22,10 @@ export class UsersService {
   USERS_STORAGE_KEY = 'sjdsjJI72402Hw2kswp';
 
   constructor() {
+    this.getSavedUsers();
+  }
+
+  getSavedUsers() {
     const users = this.storageService.get(this.USERS_STORAGE_KEY);
     if (users) this.users.set(users);
   }
@@ -47,6 +54,15 @@ export class UsersService {
     this.storageService.save({
       key: this.USERS_STORAGE_KEY,
       value: this.users(),
+    });
+  }
+
+  cancelOrResetForm() {
+    this.activeUser.set(null);
+    this.router.navigate([], {
+      queryParams: null,
+      queryParamsHandling: 'replace',
+      relativeTo: this.route,
     });
   }
 

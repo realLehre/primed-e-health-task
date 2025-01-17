@@ -2,7 +2,7 @@
   <h3 class="text-lg mobile:text-2xl font-semibold mb-4">Users</h3>
 
   @if (usersData().length > 0) {
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto" data-test-id="users-table">
       <table
         class="min-w-full table-auto border-collapse border border-gray-300"
       >
@@ -42,6 +42,6 @@
       </table>
     </div>
   } @else {
-    <p>No users added yet</p>
+    <p data-test-id="no-users">No users added yet</p>
   }
 </div>
