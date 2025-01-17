@@ -15,7 +15,9 @@ export class UsersService {
   ];
   users = signal<IUser[]>([]);
   activeUser = signal<IUser | null>(null);
+  isDeleted = signal(false);
   USERS_STORAGE_KEY = 'sjdsjJI72402Hw2kswp';
+
   constructor() {
     const users = this.storageService.get(this.USERS_STORAGE_KEY);
     if (users) this.users.set(users);
@@ -37,8 +39,6 @@ export class UsersService {
     users = users.map((user) =>
       user.id === id ? { ...user, ...value } : user,
     );
-
-    console.log(users, id, value);
     this.updateUsersAndSaveToStorage(users);
   }
 
